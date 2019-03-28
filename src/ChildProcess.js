@@ -19,15 +19,13 @@ type cp$spawnSyncOpts = {| +stdio: 'inherit' |};
  * limited API to solve all common problems when calling `child_process` from
  * Node.js or `execa` so you don't have to reinvent the wheel every time.
  * Moreover, it has proper Flow types in contract to `execa`.
- *
- * TODO: rename the functions to something more descriptive?
  */
 module.exports = {
   /**
-   * Fork method is perfect when you need to fork current Node.js process
-   * and run another Node.js script by filename.
+   * Method `executeNodeScript` is perfect when you need to fork current
+   * Node.js process and run another Node.js script by filename.
    */
-  fork: (
+  executeNodeScript: (
     modulePath /*: string */,
     argsOrOptions /*: ?(string[] | cp$forkOpts) */,
     options /*: ?cp$forkOpts */,
@@ -47,12 +45,11 @@ module.exports = {
   },
 
   /**
-   * Spawn functions are great if you need to run command on your OS. This
-   * function performs additional checks to make sure this command actually
-   * exists on your system. Please note: this function differs from the
-   * original Node.js function.
+   * Method `executeSystemCommand` is great if you need to run command on your OS.
+   * This function performs additional checks to make sure this command actually
+   * exists on your system.
    */
-  spawnSync: (
+  executeSystemCommand: (
     command /*: string */,
     argsOrOptions /*: ?(string[] | cp$spawnSyncOpts) */,
     options /*: ?cp$spawnSyncOpts */,
