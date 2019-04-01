@@ -62,7 +62,7 @@ module.exports = {
       error.message = `Command '${command}' doesn't exist in your OS and therefore cannot be executed.`;
       throw error;
     }
-    const { stdout } = Array.isArray(argsOrOptions)
+    const { stdout, status } = Array.isArray(argsOrOptions)
       ? nodeChildProcess.spawnSync(command, argsOrOptions, {
           ...options,
         })
@@ -70,6 +70,7 @@ module.exports = {
           ...argsOrOptions,
           ...options,
         });
+    process.exitCode = status;
     return stdout !== null
       ? stdout.toString() // stdout is available only when used without stdio:inherit (otherwise it's being streamed)
       : stdout;
