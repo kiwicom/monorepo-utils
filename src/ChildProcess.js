@@ -7,8 +7,14 @@ const nodeChildProcess = require('child_process');
 // See: https://github.com/facebook/flow/blob/af99a9e671351a83971ec880e6bfcdc96eeba2d7/lib/node.js#L275
 // Intentionally limited:
 
+type ValidStdio = 'pipe' | 'ignore' | 'inherit';
+
 type cp$forkOpts = {| +execArgv: string[] |};
-type cp$spawnSyncOpts = {| +stdio: 'inherit' |};
+type cp$spawnSyncOpts = {|
+  +stdio?: ValidStdio | Array<ValidStdio>, // should be `tuple` but Flow internally define it as an array
+  +cwd?: string,
+  +input?: string, // stdin (overwrites stdio[0])
+|};
 
 */
 
