@@ -9,7 +9,6 @@ const nodeChildProcess = require('child_process');
 
 type ValidStdio = 'pipe' | 'ignore' | 'inherit';
 
-type cp$forkOpts = {| +execArgv: string[] |};
 type cp$spawnSyncOpts = {|
   +stdio?: ValidStdio | Array<ValidStdio>, // should be `tuple` but Flow internally define it as an array
   +cwd?: string,
@@ -18,35 +17,12 @@ type cp$spawnSyncOpts = {|
 
 */
 
-const cwd = process.cwd();
-
-/**
- * Method `executeNodeScript` is perfect when you need to fork current
- * Node.js process and run another Node.js script by filename.
- */
-function executeNodeScript(
-  modulePath /*: string */,
-  argsOrOptions /*: ?(string[] | cp$forkOpts) */,
-  options /*: ?cp$forkOpts */,
-) /*: child_process$ChildProcess */ {
-  const defaultOptions = { cwd, stdio: 'inherit' };
-  const child = Array.isArray(argsOrOptions)
-    ? nodeChildProcess.fork(modulePath, argsOrOptions, {
-        ...defaultOptions,
-        ...options,
-      })
-    : nodeChildProcess.fork(modulePath, {
-        ...defaultOptions,
-        ...argsOrOptions,
-        ...options,
-      });
-  return bindChildProcess(child);
-}
-
 /**
  * Method `executeSystemCommand` is great if you need to run command on your OS.
  * This function performs additional checks to make sure this command actually
  * exists on your system.
+ *
+ * @deprecated use `ShellCommand` directly
  */
 function executeSystemCommand(
   command /*: string */,
@@ -82,16 +58,7 @@ function executeSystemCommand(
  * Moreover, it has proper Flow types in contract to `execa`.
  */
 module.exports = {
-  executeNodeScript,
   executeSystemCommand,
 
   // Note: we do not allow `exec` here which spawns `shell` to run the command.
 };
-
-function bindChildProcess(child /*: child_process$ChildProcess */) {
-  child.on('exit', code => {
-    // always exit the main process when child process dies
-    process.exit(code);
-  });
-  return child;
-}

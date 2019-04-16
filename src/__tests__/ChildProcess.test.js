@@ -1,39 +1,8 @@
 // @flow
 
-import path from 'path';
 import nodeChildProcess from 'child_process';
 
 import ChildProcess from '../ChildProcess';
-
-describe('executeNodeScript', () => {
-  it('forwards exit code correctly', done => {
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
-
-    const child = ChildProcess.executeNodeScript(
-      path.join(__dirname, 'ChildProcessFixtures/exit.js'),
-    );
-
-    child.on('exit', () => {
-      expect(mockExit).toHaveBeenCalledWith(5);
-      mockExit.mockRestore();
-      done();
-    });
-  });
-
-  it('exits gracefully on success', done => {
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
-
-    const child = ChildProcess.executeNodeScript(
-      path.join(__dirname, 'ChildProcessFixtures/success.js'),
-    );
-
-    child.on('exit', () => {
-      expect(mockExit).toHaveBeenCalledWith(0);
-      mockExit.mockRestore();
-      done();
-    });
-  });
-});
 
 describe('executeSystemCommand', () => {
   it('throws an exception when system command does not exist', () => {
