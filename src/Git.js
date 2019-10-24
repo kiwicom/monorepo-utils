@@ -22,12 +22,35 @@ function git(...args /*: $ReadOnlyArray<string> */): string {
     .getStdout();
 }
 
+const BASE_BRANCH_NAME = 'origin/master';
+
 const Git = {
   __parseRows,
 
   getHeadRevision(short /*: boolean */): string {
     const printShort = short ? '--short' : '';
     return git('rev-parse', printShort, 'HEAD').trim();
+  },
+
+  // git show-branch --topics -a origin/master HEAD | grep '\*' | grep '+' | grep -v 'HEAD' | head -n 1 | sed 's/.*\[\(.*\)\].*/\1/'
+  getPreviousBranchName(): string {
+    const rawBranch = git('show-branch', '--topics', '--all', BASE_BRANCH_NAME, 'HEAD');
+    const rows = __parseRows(rawBranch);
+    const filteredRows = rows.filter(
+      (row: string): boolean => /\*/u.test(row) && /\+/u.test(row) && !/HEAD/u.test(row),
+    );
+    if (filteredRows.length <= 0) {
+      return BASE_BRANCH_NAME;
+    }
+    const firstRow = filteredRows[0];
+    // see https://github.com/babel/babel/issues/10367 and https://github.com/babel/babel/pull/10447
+    const matches = firstRow.match(/.*\[(.*)\].*/u); // eslint-disable-line prefer-named-capture-group
+    if (matches == null || matches.length < 2) {
+      return BASE_BRANCH_NAME;
+    }
+    const branchName = matches[1].trim();
+
+    return branchName != null && branchName !== '' ? branchName : BASE_BRANCH_NAME;
   },
 
   getUntrackedFiles() /*: $ReadOnlyArray<string> */ {
@@ -47,7 +70,8 @@ const Git = {
   },
 
   getChangedFiles() /*: $ReadOnlyArray<string> */ {
-    const rawChanges = git('diff', '--name-only', 'origin/master...HEAD');
+    const previousBranchName = Git.getPreviousBranchName();
+    const rawChanges = git('diff', '--name-only', `${previousBranchName}...HEAD`);
     return __parseRows(rawChanges);
   },
 
