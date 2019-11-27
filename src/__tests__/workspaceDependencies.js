@@ -11,7 +11,6 @@ export default sanitizeWorkspaces({
       '@kiwicom/environment',
       '@kiwicom/fetch',
       '@kiwicom/graphql-skymock',
-      '@kiwicom/js',
       '@kiwicom/monorepo',
     ],
     mismatchedWorkspaceDependencies: [],
@@ -38,7 +37,7 @@ export default sanitizeWorkspaces({
   },
   '@kiwicom/graphql-skymock': {
     location: 'src/apps/graphql-skymock',
-    workspaceDependencies: ['@kiwicom/test-utils', '@kiwicom/fetch', '@kiwicom/js'],
+    workspaceDependencies: ['@kiwicom/test-utils', '@kiwicom/fetch'],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/graphql': {
@@ -68,7 +67,7 @@ export default sanitizeWorkspaces({
   },
   '@kiwicom/environment': {
     location: 'src/packages/environment',
-    workspaceDependencies: ['@kiwicom/js'],
+    workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/eslint-config': {
@@ -83,7 +82,7 @@ export default sanitizeWorkspaces({
   },
   '@kiwicom/fetch': {
     location: 'src/packages/fetch',
-    workspaceDependencies: ['@kiwicom/js'],
+    workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/graphql-bc-checker': {
@@ -93,12 +92,12 @@ export default sanitizeWorkspaces({
   },
   '@kiwicom/graphql-global-id': {
     location: 'src/packages/graphql-global-id',
-    workspaceDependencies: ['@kiwicom/js'],
+    workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/graphql-monitoring': {
     location: 'src/packages/graphql-monitoring',
-    workspaceDependencies: ['@kiwicom/environment', '@kiwicom/js'],
+    workspaceDependencies: ['@kiwicom/environment'],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/graphql-resolve-wrapper': {
@@ -111,11 +110,6 @@ export default sanitizeWorkspaces({
     workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
-  '@kiwicom/js': {
-    location: 'src/packages/js',
-    workspaceDependencies: [],
-    mismatchedWorkspaceDependencies: [],
-  },
   '@kiwicom/monorepo-npm-publisher': {
     location: 'src/packages/monorepo-npm-publisher',
     workspaceDependencies: ['@kiwicom/babel-preset-kiwicom', '@kiwicom/monorepo'],
@@ -123,22 +117,22 @@ export default sanitizeWorkspaces({
   },
   '@kiwicom/monorepo-shipit': {
     location: 'src/core/monorepo-shipit',
-    workspaceDependencies: ['@kiwicom/js', '@kiwicom/monorepo', '@kiwicom/test-utils'],
+    workspaceDependencies: ['@kiwicom/monorepo', '@kiwicom/test-utils'],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/monorepo': {
     location: 'src/packages/monorepo',
-    workspaceDependencies: ['@kiwicom/js'],
+    workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/relay': {
     location: 'src/packages/relay',
-    workspaceDependencies: ['@kiwicom/fetch', '@kiwicom/js'],
+    workspaceDependencies: ['@kiwicom/fetch'],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/test-utils': {
     location: 'src/packages/test-utils',
-    workspaceDependencies: ['@kiwicom/js'],
+    workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
   '@kiwicom/vault2env': {
