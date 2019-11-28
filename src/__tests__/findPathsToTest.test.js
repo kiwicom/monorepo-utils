@@ -10,18 +10,12 @@ it('finds dirty paths to test based on the changed files', () => {
   expect(
     findPathsToTest(workspaceDependencies, [
       '/unknown_path', // doesn't exist and therefore is not being reflected in the output
-      '/src/packages/fetch/src/fetchWithRetries.js', // should run `@kiwicom/fetch` and all the related packages (see findRelatedWorkspaces.test.js)
+      '/src/packages/graphql-utils/src/index.js', // should run `@kiwicom/graphql-environment` and all the related packages (see findRelatedWorkspaces.test.js)
     ]),
   ).toMatchInlineSnapshot(`
     Set {
-      "src/packages/fetch/",
-      "src/apps/automator/",
-      "src/apps/graphql-skymock/",
+      "src/packages/graphql-utils/",
       "src/apps/graphql/",
-      "src/packages/relay/",
-      "src/apps/example-react-native/",
-      "src/apps/relay-example/",
-      "src/packages/vault2env/",
     }
   `);
 
@@ -30,20 +24,14 @@ it('finds dirty paths to test based on the changed files', () => {
       Array [
         "DIRTY WORKSPACES:",
         Set {
-          "@kiwicom/fetch",
+          "@kiwicom/graphql-utils",
         },
       ],
       Array [
         "TESTING WORKSPACES:",
         Set {
-          "@kiwicom/fetch",
-          "@kiwicom/automator",
-          "@kiwicom/graphql-skymock",
+          "@kiwicom/graphql-utils",
           "@kiwicom/graphql",
-          "@kiwicom/relay",
-          "example-react-native",
-          "relay-example",
-          "@kiwicom/vault2env",
         },
       ],
     ]

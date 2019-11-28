@@ -12,19 +12,13 @@ it('finds related workspaces based on touched workspaces', () => {
     }
   `);
 
-  // `@kiwicom/fetch` is used in many projects so all these projects
+  // `@kiwicom/graphql-utils` is used in many projects so all these projects
   // should be tested (recursively - see the example projects)
-  expect(findRelatedWorkspaces(workspaceDependencies, new Set(['@kiwicom/fetch'])))
+  expect(findRelatedWorkspaces(workspaceDependencies, new Set(['@kiwicom/graphql-utils'])))
     .toMatchInlineSnapshot(`
     Set {
-      "@kiwicom/fetch",
-      "@kiwicom/automator",
-      "@kiwicom/graphql-skymock",
+      "@kiwicom/graphql-utils",
       "@kiwicom/graphql",
-      "@kiwicom/relay",
-      "example-react-native",
-      "relay-example",
-      "@kiwicom/vault2env",
     }
   `);
 });
