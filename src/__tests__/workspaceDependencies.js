@@ -103,11 +103,6 @@ export default sanitizeWorkspaces({
     workspaceDependencies: [],
     mismatchedWorkspaceDependencies: [],
   },
-  '@kiwicom/monorepo-npm-publisher': {
-    location: 'src/packages/monorepo-npm-publisher',
-    workspaceDependencies: ['@kiwicom/babel-preset-kiwicom', '@kiwicom/monorepo'],
-    mismatchedWorkspaceDependencies: [],
-  },
   '@kiwicom/monorepo-shipit': {
     location: 'src/core/monorepo-shipit',
     workspaceDependencies: ['@kiwicom/monorepo', '@kiwicom/test-utils'],
